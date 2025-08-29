@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AQI Predictor 🌸</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="cartoon-bg">
+    <div class="cloud"></div>
+    <div class="cloud2"></div>
+    <div class="building b1"></div>
+    <div class="building b2"></div>
+    <div class="building b3"></div>
+    <div class="tree"></div>
+    <div class="street"></div>
+    <div id="smoke-container"></div>
+  </div>
+  <div class="form-box">
+    <h1>AQI Predictor 🌿</h1>
+    <form id="aqiForm">
+      <input type="text" name="PM25" id="PM25" placeholder="Enter PM2.5" required><br>
+      <input type="text" name="PM10" id="PM10" placeholder="Enter PM10" required><br>
+      <input type="text" name="NOx" id="NOx" placeholder="Enter NOx" required><br>
+      <input type="text" name="CO" id="CO" placeholder="Enter CO" required><br>
+      <input type="text" name="SO2" id="SO2" placeholder="Enter SO2" required><br>
+      <button type="submit">Predict AQI ✨</button>
+    </form>
+    <div id="result" class="speech-bubble" style="display:none;"></div>
+  </div>
+  <script>
+    // Immersive cartoon smoke effect on mousemove
+    const smokeContainer = document.getElementById('smoke-container');
+    let smokeParticles = [];
+    document.addEventListener('mousemove', function(e) {
+      // Limit max particles
+      if (smokeParticles.length > 40) {
+        const old = smokeParticles.shift();
+        if (old) old.remove();
+      }
+      // Randomize size, opacity, spread
+      const size = Math.random() * 40 + 30; // 30-70px
+      const opacity = Math.random() * 0.3 + 0.4; // 0.4-0.7
+      const spreadX = (Math.random() - 0.5) * 40; // -20 to 20px
+      const spreadY = (Math.random() - 0.5) * 20; // -10 to 10px
+      const smoke = document.createElement('div');
+      smoke.className = 'mouse-smoke';
+      smoke.style.left = (e.pageX + spreadX - size/2) + 'px';
+      smoke.style.top = (e.pageY + spreadY - size/2) + 'px';
+      smoke.style.width = size + 'px';
+      smoke.style.height = size * 0.6 + 'px';
+      smoke.style.opacity = opacity;
+      smokeContainer.appendChild(smoke);
+      smokeParticles.push(smoke);
+      setTimeout(() => {
+        smoke.style.opacity = '0';
+      }, 500);
+      setTimeout(() => {
+        smoke.remove();
+        smokeParticles = smokeParticles.filter(s => s !== smoke);
+      }, 1200);
+    });
+
+    document.getElementById('aqiForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const data = {
+        PM25: document.getElementById('PM25').value,
+        PM10: document.getElementById('PM10').value,
+        NOx: document.getElementById('NOx').value,
+        CO: document.getElementById('CO').value,
+        SO2: document.getElementById('SO2').value
+      };
+      // Flask expects CO, PM25, NOx, SO2, PM10
+      const payload = {
+        CO: data.CO,
+        PM25: data.PM25,
+        NOx: data.NOx,
+        SO2: data.SO2,
+        PM10: data.PM10
+      };
+      const res = await fetch('/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const resultDiv = document.getElementById('result');
+      if (res.ok) {
+        const out = await res.json();
+        resultDiv.style.display = 'block';
+        resultDiv.textContent = `Predicted AQI: ${out.predicted_AQI}`;
+      } else {
+        resultDiv.style.display = 'block';
+        resultDiv.textContent = 'Invalid input. Please enter valid numbers.';
+      }
+    });
+  </script>
+</body>
+</html>

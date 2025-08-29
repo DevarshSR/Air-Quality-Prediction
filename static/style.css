@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+body {
+  font-family: 'Comic Neue', 'Comic Sans MS', cursive, sans-serif;
+  background: linear-gradient(180deg, #aee1f9 0%, #f9d29d 60%, #f7b2b7 100%);
+  min-height: 100vh;
+  margin: 0;
+  position: relative;
+  overflow-x: hidden;
+}
+.cartoon-bg {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+.street {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 180px;
+  background: linear-gradient(90deg, #f7b2b7 0%, #f9d29d 100%);
+  border-top: 8px solid #f7b2b7;
+}
+.building {
+  position: absolute;
+  bottom: 180px;
+  width: 120px;
+  height: 180px;
+  background: #ffe4e1;
+  border-radius: 30px 30px 10px 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+.building.b1 { left: 10vw; background: #f9d29d; }
+.building.b2 { left: 30vw; background: #aee1f9; }
+.building.b3 { left: 60vw; background: #f7b2b7; }
+.tree {
+  position: absolute;
+  bottom: 180px;
+  width: 60px;
+  height: 80px;
+  left: 20vw;
+  background: #b2f7ef;
+  border-radius: 50% 50% 40% 40%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.cloud {
+  position: absolute;
+  top: 60px;
+  left: 10vw;
+  width: 100px;
+  height: 60px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 60px 0px 0px 0px #fff, 120px 10px 0px 0px #fff, 180px 0px 0px 0px #fff;
+  opacity: 0.7;
+}
+.cloud2 {
+  position: absolute;
+  top: 120px;
+  left: 60vw;
+  width: 80px;
+  height: 50px;
+  background: #e0e0e0;
+  border-radius: 50%;
+  box-shadow: 40px 0px 0px 0px #e0e0e0, 80px 10px 0px 0px #e0e0e0, 120px 0px 0px 0px #e0e0e0;
+  opacity: 0.6;
+}
+.form-box {
+  background: #fffbe6;
+  padding: 30px 20px;
+  border-radius: 30px;
+  box-shadow: 0px 8px 24px rgba(0,0,0,0.2);
+  width: 420px;
+  margin: 120px auto 0 auto;
+  position: relative;
+  z-index: 1;
+  border: 4px solid #f9d29d;
+  outline: 6px dashed #aee1f9;
+}
+.form-box:before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  left: 40px;
+  width: 60px;
+  height: 30px;
+  background: #ffe4e1;
+  border-radius: 50% 50% 0 0;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  z-index: 0;
+}
+input {
+  margin: 12px;
+  padding: 12px;
+  width: 80%;
+  border-radius: 16px;
+  border: 2px solid #aee1f9;
+  background: #fff8f0;
+  font-size: 18px;
+  box-shadow: 2px 2px 8px #f9d29d inset;
+  transition: box-shadow 0.2s;
+}
+input:focus {
+  box-shadow: 2px 2px 12px #ffdde1 inset;
+  outline: none;
+}
+button {
+  padding: 16px 32px;
+  border-radius: 20px;
+  border: none;
+  background: #aee1f9;
+  font-size: 22px;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+  transition: background 0.2s, color 0.2s;
+  color: #ff6f91;
+  font-weight: bold;
+  margin-top: 18px;
+}
+button:hover {
+  background: #ffb6b9;
+  color: #fffbe6;
+}
+h1 {
+  font-size: 2.5em;
+  color: #ff6f91;
+  text-shadow: 2px 2px 8px #fffbe6;
+  margin-bottom: 10px;
+  font-family: 'Comic Neue', cursive;
+}
+.speech-bubble {
+  position: relative;
+  background: #fffbe6;
+  border-radius: 30px;
+  border: 4px solid #aee1f9;
+  padding: 24px 32px;
+  width: 320px;
+  margin: 30px auto 0 auto;
+  font-size: 1.5em;
+  color: #ff6f91;
+  font-family: 'Comic Neue', cursive;
+  box-shadow: 0px 8px 24px rgba(0,0,0,0.1);
+}
+.speech-bubble:after {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  left: 60px;
+  width: 60px;
+  height: 30px;
+  background: #fffbe6;
+  border-radius: 0 0 30px 30px;
+  border-bottom: 4px solid #aee1f9;
+  z-index: 0;
+}
+.mouse-smoke {
+  position: absolute;
+  background: radial-gradient(circle at 60% 40%, #b2f7b2 60%, #eaffea 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 20;
+  filter: blur(6px);
+  box-shadow: 0 0 32px 12px #b2f7b2, 0 0 12px 2px #eaffea;
+  transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 1.2s cubic-bezier(.4,0,.2,1);
+  animation: mouseSmokeAnim 1.2s linear forwards;
+}
+@keyframes mouseSmokeAnim {
+  0% { transform: scale(1) translateY(0); }
+  60% { transform: scale(1.2) translateY(-10px); }
+  100% { transform: scale(1.4) translateY(-30px); }
+}
